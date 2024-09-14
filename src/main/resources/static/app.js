@@ -14,7 +14,7 @@ app.controller("BookLoanController", function ($scope, $http) {
         $http({
             method: 'POST',
             url: 'api/books',
-            data: angular.toJSON($scope.bookForm),
+            data: JSON.stringify($scope.bookForm),
             headers: {
                 'Content-Type': 'application/json'
             }

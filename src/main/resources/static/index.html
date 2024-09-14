@@ -11,7 +11,7 @@
 </head>
 <body ng-app="BookLoanManagement" ng-controller="BookLoanController">
 <h1>Book Loan Management</h1>
-<form ng-submit="saveNewBook">
+<form ng-submit="saveNewBook()">
     <table>
         <tr>
             <th colspan="2">Add book</th>
@@ -19,13 +19,13 @@
         <tr>
             <td>Title</td>
             <td>
-                <input type="text" ng-model="bookFrom.title"/>
+                <input type="text" ng-model="bookForm.title"/>
             </td>
         </tr>
         <tr>
             <td>Author</td>
             <td>
-                <input type="text" ng-model="bookFrom.author"/>
+                <input type="text" ng-model="bookForm.author"/>
             </td>
         </tr>
         <tr>
