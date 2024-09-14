@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ng-app="BookLoanManagement">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,42 @@
     <script src="app.js"></script>
 
 </head>
-<body>
+<body ng-app="BookLoanManagement" ng-controller="BookLoanController">
+<h1>Book Loan Management</h1>
+<form ng-submit="saveNewBook">
+    <table>
+        <tr>
+            <th colspan="2">Add book</th>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>
+                <input type="text" ng-model="bookFrom.title"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td>
+                <input type="text" ng-model="bookFrom.author"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit"/>
+            </td>
+        </tr>
+    </table>
+</form>
 
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+    </tr>
+    <tr ng-repeat="book in books">
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+    </tr>
+</table>
 </body>
 </html>
