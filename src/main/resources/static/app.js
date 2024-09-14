@@ -5,7 +5,12 @@ app.controller("BookLoanController", function ($scope, $http) {
     $scope.bookForm = {
         id: -1,
         title: "",
-        author: ""
+        author: "",
+        publisher: "",
+        isbn: "",
+        year: 0,
+        genre: "",
+        recipient: ""
     };
 
     _refreshBookData();
@@ -47,7 +52,12 @@ app.controller("BookLoanController", function ($scope, $http) {
     //Clear the form
     function _clearFormData() {
         $scope.bookForm.id = -1;
-        $scope.bookForm.customerName = "";
-        $scope.bookForm.email = "";
+        $scope.bookForm.title = "";
+        $scope.bookForm.author = "";
+        $scope.bookForm.publisher = "";
+        $scope.bookForm.isbn = "";
+        $scope.bookForm.year = 0;
+        $scope.bookForm.genre = "";
+        $scope.bookForm.recipient = "";
     };
 })
