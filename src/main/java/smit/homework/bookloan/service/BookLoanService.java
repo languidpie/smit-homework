@@ -1,5 +1,6 @@
 package smit.homework.bookloan.service;
 
+import smit.homework.bookloan.controller.BookFrom;
 import smit.homework.bookloan.entity.Book;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface BookLoanService {
      * @return the saved book
      */
     Book saveBook(Book book);
+
+    Book saveNewBook(BookFrom bookFormData);
 
     Optional<Book> findBookById(long id);
 

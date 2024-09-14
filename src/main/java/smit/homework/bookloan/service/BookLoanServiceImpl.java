@@ -3,6 +3,7 @@ package smit.homework.bookloan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import smit.homework.bookloan.controller.BookFrom;
 import smit.homework.bookloan.entity.Book;
 import smit.homework.bookloan.repository.BookRepository;
 
@@ -26,6 +27,21 @@ public class BookLoanServiceImpl implements BookLoanService {
     @Override
     public Book saveBook(Book book) {
         return bookRepository.save(book);
+    }
+
+    @Override
+    public Book saveNewBook(BookFrom bookFormData) {
+        Book newBook = Book.builder()
+                .title(bookFormData.getTitle())
+                .author(bookFormData.getAuthor())
+                .publisher(bookFormData.getPublisher())
+                .isbn(bookFormData.getIsbn())
+                .year(bookFormData.getYear())
+                .genre(bookFormData.getGenre())
+                .status(Book.BookStatus.AVAILABLE)
+                .build();
+
+        return this.saveBook(newBook);
     }
 
     @Override
