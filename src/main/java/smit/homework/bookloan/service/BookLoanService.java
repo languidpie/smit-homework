@@ -2,24 +2,42 @@ package smit.homework.bookloan.service;
 
 import smit.homework.bookloan.entity.Book;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
+ * Service interface for {@link Book} entity.
+ *
  * @author Mari-Liis Pihlapuu
  * Date: 14.09.2024
  */
 public interface BookLoanService {
 
-    //TODO: save 1 book
+    /**
+     * Saves or updates a Book entity.
+     * @param book {@link Book} entity to save
+     * @return the saved book
+     */
+    Book saveBook(Book book);
 
-    // TODO: find 1 book
+    Optional<Book> findBookById(long id);
 
-    // TODO: find all books
+    /**
+     * Fetches all existing Book entities.
+     *
+     * @return list of all Book entities
+     */
+    List<Book> findAllBooks();
 
-    // TODO: update book information
+    /**
+     * Deletes a Book entity.
+     * @param id {@link Book} identifier of a book to be deleted
+     */
+    void deleteBook(long id);
 
-    // TODO: delete book
+    void loanBook(long bookId);
 
-    // TODO: reserve book
+    void reserveBook(long bookId);
 
-    // TODO: remove book reservation
-
+    void removeReservation(long bookId);
 }

@@ -20,7 +20,7 @@ import java.security.Timestamp;
 @Builder
 public class Book {
     @Id
-    private int id;
+    private long id;
     private String title;
     private String author;
     private String publisher;
