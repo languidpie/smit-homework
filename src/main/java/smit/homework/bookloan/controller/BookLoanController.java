@@ -39,10 +39,17 @@ public class BookLoanController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> saveNewBook(@RequestBody @Valid BookFrom book) {
+    public ResponseEntity<Book> saveNewBook(@RequestBody @Valid BookForm bookForm) {
         log.info("Attempting to save book.");
 
-        return ResponseEntity.ok(bookLoanService.saveNewBook(book));
+        return ResponseEntity.ok(bookLoanService.saveNewBook(bookForm));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable long id, @RequestBody @Valid BookForm bookForm) {
+        log.info("Attempting to update book.");
+
+        return ResponseEntity.ok(bookLoanService.updateBook(id, bookForm));
     }
 
     @PutMapping("/{id}/reserve")

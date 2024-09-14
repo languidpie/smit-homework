@@ -10,7 +10,7 @@ import lombok.Data;
  */
 //TODO: Add validations
 @Data
-public class BookFrom {
+public class BookForm {
     private String title;
     private String author;
     private String publisher;

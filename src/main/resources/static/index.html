@@ -11,7 +11,7 @@
 </head>
 <body ng-app="BookLoanManagement" ng-controller="BookLoanController">
 <h1>Book Loan Management</h1>
-<form ng-submit="saveNewBook()">
+<form ng-submit="saveBook()">
     <table>
         <tr>
             <th colspan="2">Add book</th>
@@ -75,6 +75,8 @@
         <th>Year</th>
         <th>Genre</th>
         <th>Recipient</th>
+        <th>Return date</th>
+        <th>Last update</th>
     </tr>
     <tr ng-repeat="book in books">
         <td>{{ book.title }}</td>
@@ -84,6 +86,28 @@
         <td>{{ book.year }}</td>
         <td>{{ book.genre }}</td>
         <td>{{ book.recipient }}</td>
+        <td>{{ book.bookReturnAt }}</td>
+        <td>{{ book.updatedAt | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>
+            <a ng-click="reserveBook(book)">
+                Reserve
+            </a>
+        </td>
+        <td>
+            <a ng-click="loanOut(book)">
+                Loan out
+            </a>
+        </td>
+        <td>
+            <a ng-click="editBook(book)">
+                Edit
+            </a>
+        </td>
+        <td>
+            <a ng-click="deleteBook(book)">
+                Delete
+            </a>
+        </td>
     </tr>
 </table>
 </body>

@@ -3,10 +3,11 @@ package smit.homework.bookloan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import smit.homework.bookloan.controller.BookFrom;
+import smit.homework.bookloan.controller.BookForm;
 import smit.homework.bookloan.entity.Book;
 import smit.homework.bookloan.repository.BookRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class BookLoanServiceImpl implements BookLoanService {
     }
 
     @Override
-    public Book saveNewBook(BookFrom bookFormData) {
+    public Book saveNewBook(BookForm bookFormData) {
         Book newBook = Book.builder()
                 .title(bookFormData.getTitle())
                 .author(bookFormData.getAuthor())
@@ -42,6 +43,26 @@ public class BookLoanServiceImpl implements BookLoanService {
                 .build();
 
         return this.saveBook(newBook);
+    }
+
+    @Override
+    public Book updateBook(long id, BookForm bookFormData) {
+        Optional<Book> existingBook = this.findBookById(id);
+
+        if (existingBook.isPresent()) {
+            Book book = existingBook.get();
+            book.setTitle(bookFormData.getTitle());
+            book.setAuthor(bookFormData.getAuthor());
+            book.setPublisher(bookFormData.getPublisher());
+            book.setIsbn(bookFormData.getIsbn());
+            book.setYear(bookFormData.getYear());
+            book.setGenre(bookFormData.getGenre());
+            book.setUpdatedAt(LocalDateTime.now());
+            return this.saveBook(book);
+        } else {
+            //TODO create a custom exception that will be better handled by FE
+            throw new RuntimeException();
+        }
     }
 
     @Override

@@ -15,15 +15,33 @@ app.controller("BookLoanController", function ($scope, $http) {
 
     _refreshBookData();
 
-    $scope.saveNewBook = function () {
-        $http({
-            method: 'POST',
-            url: 'api/books',
-            data: JSON.stringify($scope.bookForm),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(_success, _error);
+    $scope.saveBook = function () {
+        if ($scope.bookForm.id === -1) {
+            // Save new book
+            $http({
+                method: 'POST',
+                url: 'api/books',
+                data: JSON.stringify($scope.bookForm),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(_success, _error);
+        } else {
+            // Update existing book
+            $http({
+                method: 'PUT',
+                url: 'api/books/' + $scope.bookForm.id,
+                data: JSON.stringify($scope.bookForm),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(_success, _error);
+        }
+    };
+
+    $scope.editBook = function (book) {
+        // Copy the selected book's data into the form for editing
+        $scope.bookForm = angular.copy(book);
     };
 
     /* Private Methods */
