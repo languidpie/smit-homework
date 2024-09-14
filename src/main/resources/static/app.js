@@ -44,6 +44,13 @@ app.controller("BookLoanController", function ($scope, $http) {
         $scope.bookForm = angular.copy(book);
     };
 
+    $scope.deleteBook = function(book) {
+        $http({
+            method : 'DELETE',
+            url : 'api/books/' + book.id
+        }).then(_success, _error);
+    };
+
     /* Private Methods */
 
     //HTTP GET- get all customers collection

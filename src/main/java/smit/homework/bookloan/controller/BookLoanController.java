@@ -65,4 +65,11 @@ public class BookLoanController {
         // TODO: to be implemented
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable long id) {
+        log.info("Attempting to delete book.");
+
+        bookLoanService.deleteBook(id);
+    }
 }
