@@ -1,13 +1,13 @@
 package smit.homework.bookloan.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @author Mari-Liis Pihlapuu
@@ -20,6 +20,8 @@ import java.security.Timestamp;
 @Builder
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
+    @SequenceGenerator(name = "book_generator",sequenceName = "BOOK_SEQ", allocationSize = 1)
     private long id;
     private String title;
     private String author;
@@ -29,11 +31,15 @@ public class Book {
     private String genre;
     private BookStatus status;
     private String recipient;
-    private Timestamp bookReturnDate;
+    @Column(name = "book_return_at")
+    private LocalDateTime bookReturnAt;
 
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-    private Timestamp deletedAt;
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
     public enum BookStatus {
         AVAILABLE,

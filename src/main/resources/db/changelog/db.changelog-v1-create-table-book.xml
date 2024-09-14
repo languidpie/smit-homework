@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Mari-Liis Pihlapuu">
+        <createTable tableName="book">
+            <column name="id" type="bigint" autoIncrement="true" remarks="Primary key from sequence">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar"/>
+            <column name="author" type="varchar"/>
+            <column name="publisher" type="varchar"/>
+            <column name="isbn" type="varchar"/>
+            <column name="year" type="int"/>
+            <column name="genre" type="varchar"/>
+            <column name="status" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient" type="varchar"/>
+            <column name="book_return_at" type="timestamptz"/>
+
+            <column name="created_at" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"/>
+            <column name="deleted_at" type="timestamptz" />
+        </createTable>
+
+        <createSequence sequenceName="BOOK_SEQ" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+</databaseChangeLog>
