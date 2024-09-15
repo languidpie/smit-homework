@@ -36,57 +36,84 @@ public class BookLoanController {
 
     @GetMapping
     public ResponseEntity<List<Book>> findAllBooks() {
-        log.info("Attempting to find all books.");
+        log.info("Searching for all books.");
 
-        return ResponseEntity.ok(bookLoanService.findAllBooks());
+        List<Book> books = bookLoanService.findAllBooks();
+
+        log.info("Number of books found: {}", books.size());
+
+        return ResponseEntity.ok(books);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> findBookById(@PathVariable Integer id) {
-        log.info("Attempting to find book by id.");
+        log.info("Searching for book by id={}", id);
 
-        return ResponseEntity.ok(bookLoanService.findBookById(id).get());
+        return bookLoanService.findBookById(id)
+                .map(book -> {
+                    log.info("Found book with id={}", book.getId());
+                    return ResponseEntity.ok(book);
+                })
+                .orElseGet(() -> {
+                    log.info("No book with id={}", id);
+                    return ResponseEntity.notFound().build();
+                });
     }
 
     @PostMapping
     public ResponseEntity<Book> saveNewBook(@RequestBody @Valid BookForm bookForm) {
-        log.info("Attempting to save book.");
+        log.info("Attempting to save book. Title={}, author={}", bookForm.getTitle(), bookForm.getAuthor());
 
-        return ResponseEntity.ok(bookLoanService.saveNewBook(bookForm));
+        Book newBook = bookLoanService.saveNewBook(bookForm);
+
+        log.info("New book id={}", newBook.getId());
+        return ResponseEntity.ok(newBook);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable long id, @RequestBody @Valid BookForm bookForm) {
-        log.info("Attempting to update book.");
+        log.info("Attempting to update book with id={}.", id);
 
-        return ResponseEntity.ok(bookLoanService.updateBook(id, bookForm));
+        Book updatedBook = bookLoanService.updateBook(id, bookForm);
+
+        log.info("Book with id={} updated.", updatedBook.getId());
+
+        return ResponseEntity.ok(updatedBook);
     }
 
     @PutMapping("/{id}/reserve")
     public void reserveBook(@PathVariable long id, @RequestBody @Valid BookStatusForm bookStatusForm) {
-        log.info("Attempting to reserve book.");
+        log.info("Attempting to reserve book with id={}.", id);
 
         bookLoanService.reserveBook(id, bookStatusForm);
+
+        log.info("Book with id={} status set as RESERVED.", id);
     }
 
     @PutMapping("/{id}/loan")
     public void loanBook(@PathVariable long id, @RequestBody @Valid BookStatusForm bookStatusForm) {
-        log.info("Attempting to loan book.");
+        log.info("Attempting to loan book with id={}.", id);
 
         bookLoanService.loanBook(id, bookStatusForm);
+
+        log.info("Book with id={} status set as LOANED_OUT.", id);
     }
 
     @PutMapping("/{id}/return")
     public void returnBook(@PathVariable long id) {
-        log.info("Attempting to return book.");
+        log.info("Attempting to return book with id={}.", id);
 
         bookLoanService.returnBook(id);
+
+        log.info("Book with id={} status set as AVAILABLE.", id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable long id) {
-        log.info("Attempting to delete book.");
+        log.info("Attempting to delete book with id={}.", id);
 
         bookLoanService.deleteBook(id);
+
+        log.info("Book with id={} deleted.", id);
     }
 }

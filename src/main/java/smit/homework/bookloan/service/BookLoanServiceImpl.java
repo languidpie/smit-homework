@@ -1,5 +1,6 @@
 package smit.homework.bookloan.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Optional;
  * @author Mari-Liis Pihlapuu
  * Date: 14.09.2024
  */
+@Slf4j
 @Service
 @Transactional
 public class BookLoanServiceImpl implements BookLoanService {
