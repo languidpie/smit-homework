@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
+ * Represents Book entity in the application.
+ *
  * @author Mari-Liis Pihlapuu
  * Date: 14.09.2024
  */
@@ -37,8 +39,6 @@ public class Book {
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
 
     public enum BookStatus {
         AVAILABLE,

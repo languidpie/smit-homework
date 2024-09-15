@@ -25,7 +25,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_at" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"/>
-            <column name="deleted_at" type="timestamptz" />
         </createTable>
 
         <createSequence sequenceName="BOOK_SEQ" startValue="1" incrementBy="1"/>

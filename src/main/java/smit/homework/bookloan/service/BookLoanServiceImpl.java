@@ -2,7 +2,6 @@ package smit.homework.bookloan.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smit.homework.bookloan.controller.BookForm;
@@ -85,18 +84,18 @@ public class BookLoanServiceImpl implements BookLoanService {
     }
 
     @Override
-    public void loanBook(long bookId, BookStatusForm bookStatusForm) {
-        this.updateBookStatus(bookId, bookStatusForm, Book.BookStatus.LOANED_OUT);
+    public void loanBook(long id, BookStatusForm bookStatusForm) {
+        this.updateBookStatus(id, bookStatusForm, Book.BookStatus.LOANED_OUT);
     }
 
     @Override
-    public void reserveBook(long bookId, BookStatusForm bookStatusForm) {
-        this.updateBookStatus(bookId, bookStatusForm, Book.BookStatus.RESERVED);
+    public void reserveBook(long id, BookStatusForm bookStatusForm) {
+        this.updateBookStatus(id, bookStatusForm, Book.BookStatus.RESERVED);
     }
 
     @Override
-    public void returnBook(long bookId) {
-        this.updateBookStatus(bookId, new BookStatusForm(), Book.BookStatus.AVAILABLE);
+    public void returnBook(long id) {
+        this.updateBookStatus(id, new BookStatusForm(), Book.BookStatus.AVAILABLE);
     }
 
     // PRIVATE METHODS
