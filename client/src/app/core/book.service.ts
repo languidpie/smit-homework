@@ -38,4 +38,8 @@ export class BookService {
   public delete(book: Book) {
     return this.http.delete<Book>(this.booksUrl + '/' + book.id);
   }
+
+  public returnBook(book: Book) {
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/return', book);
+  }
 }

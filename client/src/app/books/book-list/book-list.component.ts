@@ -23,7 +23,7 @@ export class BookListComponent implements AfterViewInit {
   readonly dialog = inject(MatDialog);
   books: Book[] = [];
 
-  displayedColumns: string[] = ['id', 'title', 'author', 'publisher', 'isbn', 'year', 'genre', 'status', 'recipient', 'bookReturnAt', 'updatedAt', 'reserveColumn', 'loanColumn', 'editColumn', 'deleteColumn'];
+  displayedColumns: string[] = ['id', 'title', 'author', 'publisher', 'isbn', 'year', 'genre', 'status', 'recipient', 'bookReturnAt', 'updatedAt', 'returnColumn', 'reserveColumn', 'loanColumn', 'editColumn', 'deleteColumn'];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -73,6 +73,10 @@ export class BookListComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  returnBook(book: Book) {
+    this.bookService.returnBook(book).subscribe(result => window.location.reload())
   }
 
   // Method to get the CSS class based on status

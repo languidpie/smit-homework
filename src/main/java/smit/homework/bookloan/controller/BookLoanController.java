@@ -76,6 +76,13 @@ public class BookLoanController {
         bookLoanService.loanBook(id, bookStatusForm);
     }
 
+    @PutMapping("/{id}/return")
+    public void returnBook(@PathVariable long id) {
+        log.info("Attempting to return book.");
+
+        bookLoanService.returnBook(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable long id) {
         log.info("Attempting to delete book.");

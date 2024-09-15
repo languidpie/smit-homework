@@ -93,7 +93,7 @@ public class BookLoanServiceImpl implements BookLoanService {
     }
 
     @Override
-    public void removeReservation(long bookId) {
+    public void returnBook(long bookId) {
         this.updateBookStatus(bookId, new BookStatusForm(), Book.BookStatus.AVAILABLE);
     }
 
