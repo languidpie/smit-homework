@@ -29,6 +29,4 @@ export class BookFormComponent {
   gotoBookList() {
     this.router.navigate(['/books']);
   }
-
-  protected readonly BookConstants = BookConstants;
 }
