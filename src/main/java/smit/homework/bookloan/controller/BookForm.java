@@ -1,5 +1,7 @@
 package smit.homework.bookloan.controller;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 /**
@@ -8,10 +10,11 @@ import lombok.Data;
  * @author Mari-Liis Pihlapuu
  * Date: 14.09.2024
  */
-//TODO: Add validations
 @Data
 public class BookForm {
+    @NotBlank(message = "Title is mandatory")
     private String title;
+    @NotBlank(message = "Author is mandatory")
     private String author;
     private String publisher;
     private String isbn;

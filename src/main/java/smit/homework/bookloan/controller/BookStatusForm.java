@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
  * @author Mari-Liis Pihlapuu
  * Date: 15.09.2024
  */
-//TODO: Add validations
 @Data
 public class BookStatusForm {
     private String recipient;
