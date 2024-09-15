@@ -53,6 +53,20 @@ export class BookListComponent implements AfterViewInit {
     });
   }
 
+  // Method to get the CSS class based on status
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'AVAILABLE':
+        return 'status-available';
+      case 'LOANED_OUT':
+        return 'status-loaned';
+      case 'RESERVED':
+        return 'status-reserved';
+      default:
+        return ''; // Default case (optional)
+    }
+  }
+
   ngAfterViewInit() {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));

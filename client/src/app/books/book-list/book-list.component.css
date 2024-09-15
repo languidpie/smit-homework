@@ -65,3 +65,16 @@ table {
 .mat-column-created {
   width: 124px;
 }
+
+/* book-list.component.css or .scss */
+.status-available {
+  color: green;
+}
+
+.status-loaned {
+  color: red;
+}
+
+.status-reserved {
+  color: orange;
+}
