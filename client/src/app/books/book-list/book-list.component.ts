@@ -2,11 +2,11 @@ import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, ViewC
 import {Book} from "../shared/book";
 import {BookService} from "../../core/book.service";
 import {BookReserveComponent} from "../book-reserve/book-reserve.component";
-import {ReservePopupService} from "../../popup/reserve-popup.service";
-import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {MatPaginator} from "@angular/material/paginator";
 import {catchError, map, merge, startWith, switchMap, Observable, of as observableOf} from "rxjs";
-import {MatSort, MatSortModule, SortDirection} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
+import {BookLoanComponent} from "../book-loan/book-loan.component";
 
 export interface DialogData {
   book: Book;
@@ -30,12 +30,21 @@ export class BookListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort,{static:false}) sort!: MatSort;
 
-  constructor(private bookService: BookService,
-              private reservePopupService: ReservePopupService) {
+  constructor(private bookService: BookService) {
   }
 
   openReservePopup(book: Book) {
     const dialogRef = this.dialog.open(BookReserveComponent, {
+      data: {book: book},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openLoanPopup(book: Book) {
+    const dialogRef = this.dialog.open(BookLoanComponent, {
       data: {book: book},
     });
 

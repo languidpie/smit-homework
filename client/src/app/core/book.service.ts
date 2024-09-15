@@ -26,4 +26,8 @@ export class BookService {
   public reserve(book: Book) {
     return this.http.put<Book>(this.booksUrl + '/' + book.id + '/reserve', book);
   }
+
+  public loan(book: Book) {
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/loan', book);
+  }
 }

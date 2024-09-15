@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Book Loaning</h2>
+<mat-dialog-content>
+  <p>Who would it be loaned to?</p>
+  <mat-form-field>
+    <mat-label>Name of recipient</mat-label>
+    <input matInput [(ngModel)]="book.recipient" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Choose date of return</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="book.bookReturnAt" >
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onLoan(book)">Loan out</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

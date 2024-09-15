@@ -101,7 +101,7 @@
         <th mat-header-cell *matHeaderCellDef>
         </th>
         <td mat-cell *matCellDef="let row">
-          <button mat-button >Loan</button>
+          <button mat-button (click)="openLoanPopup(row)">Loan</button>
         </td>
       </ng-container>
 

@@ -26,13 +26,15 @@ import {
   MatDatepickerToggle
 } from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { BookLoanComponent } from './books/book-loan/book-loan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookListComponent,
     BookFormComponent,
-    BookReserveComponent
+    BookReserveComponent,
+    BookLoanComponent
   ],
   imports: [
     BrowserModule,
