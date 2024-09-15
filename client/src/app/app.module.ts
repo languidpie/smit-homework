@@ -29,6 +29,9 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { BookLoanComponent } from './books/book-loan/book-loan.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatIcon} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -57,7 +60,12 @@ import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
     MatSelectModule,
     MatCard,
     MatCardHeader,
-    MatCardContent
+    MatCardContent,
+    MatMenu,
+    MatMenuTrigger,
+    MatToolbar,
+    MatMenuItem,
+    MatIcon
   ],
   providers: [BookService, provideAnimationsAsync(), DatePipe],
   bootstrap: [AppComponent]

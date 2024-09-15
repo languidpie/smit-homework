@@ -1,17 +1,41 @@
+/* Full-page layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full height of the viewport */
+  margin: 0;
+}
+
 /* Structure */
 .book-container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Ensures the container fills the remaining vertical space */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Prevent content from overflowing outside the container */
 }
 
 .book-table-container {
-  position: relative;
-  min-height: 200px;
-  max-height: 400px;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Expands to fill available space */
+  overflow-y: auto; /* Adds vertical scroll if content exceeds height */
 }
 
 table {
   width: 100%;
+  flex-grow: 1; /* Ensures the table stretches to fill available space */
 }
 
 .book-loading-shade {

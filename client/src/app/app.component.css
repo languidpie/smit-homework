@@ -1,0 +1,15 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #e0f7fa; /* Pale blue color */
+  color: #000; /* Ensures text is visible against the light background */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+button[mat-button] {
+  margin-left: 10px;
+  color: #000; /* Ensures button text is visible on pale blue */
+}
