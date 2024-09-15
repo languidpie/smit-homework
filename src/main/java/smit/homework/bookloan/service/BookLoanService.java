@@ -1,7 +1,8 @@
 package smit.homework.bookloan.service;
 
-import smit.homework.bookloan.controller.BookForm;
-import smit.homework.bookloan.controller.BookStatusForm;
+import smit.homework.bookloan.controller.forms.BookForm;
+import smit.homework.bookloan.controller.forms.BookLoanedForm;
+import smit.homework.bookloan.controller.forms.BookReserveForm;
 import smit.homework.bookloan.entity.Book;
 
 import java.util.List;
@@ -65,17 +66,17 @@ public interface BookLoanService {
      * Loans a book to a recipient.
      *
      * @param id the identifier of the book
-     * @param bookStatusForm the form data for the operation
+     * @param bookLoanedForm the form data for the operation
      */
-    void loanBook(long id, BookStatusForm bookStatusForm);
+    void loanBook(long id, BookLoanedForm bookLoanedForm);
 
     /**
      * Reserves a book to a recipient.
      *
      * @param id the identifier of the book
-     * @param bookStatusForm the form data for the operation
+     * @param bookReserveForm the form data for the operation
      */
-    void reserveBook(long id, BookStatusForm bookStatusForm);
+    void reserveBook(long id, BookReserveForm bookReserveForm);
 
     /**
      * Returns a book, making it available again.

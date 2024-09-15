@@ -1,10 +1,10 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewChild} from '@angular/core';
 import {Book} from "../shared/book";
 import {BookService} from "../../core/book.service";
 import {BookReserveComponent} from "../book-reserve/book-reserve.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MatPaginator} from "@angular/material/paginator";
-import {catchError, map, merge, startWith, switchMap, Observable, of as observableOf} from "rxjs";
+import {catchError, map, merge, startWith, switchMap, of as observableOf} from "rxjs";
 import {MatSort} from '@angular/material/sort';
 import {BookLoanComponent} from "../book-loan/book-loan.component";
 import {BookDeleteComponent} from "../book-delete/book-delete.component";

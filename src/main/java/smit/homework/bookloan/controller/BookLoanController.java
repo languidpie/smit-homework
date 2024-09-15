@@ -7,6 +7,9 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import smit.homework.bookloan.controller.forms.BookForm;
+import smit.homework.bookloan.controller.forms.BookLoanedForm;
+import smit.homework.bookloan.controller.forms.BookReserveForm;
 import smit.homework.bookloan.entity.Book;
 import smit.homework.bookloan.service.BookLoanService;
 
@@ -82,19 +85,19 @@ public class BookLoanController {
     }
 
     @PutMapping("/{id}/reserve")
-    public void reserveBook(@PathVariable long id, @RequestBody BookStatusForm bookStatusForm) {
+    public void reserveBook(@PathVariable long id, @RequestBody BookReserveForm bookReserveForm) {
         log.info("Attempting to reserve book with id={}.", id);
 
-        bookLoanService.reserveBook(id, bookStatusForm);
+        bookLoanService.reserveBook(id, bookReserveForm);
 
         log.info("Book with id={} status set as RESERVED.", id);
     }
 
     @PutMapping("/{id}/loan")
-    public void loanBook(@PathVariable long id, @RequestBody BookStatusForm bookStatusForm) {
+    public void loanBook(@PathVariable long id, @RequestBody BookLoanedForm bookLoanedForm) {
         log.info("Attempting to loan book with id={}.", id);
 
-        bookLoanService.loanBook(id, bookStatusForm);
+        bookLoanService.loanBook(id, bookLoanedForm);
 
         log.info("Book with id={} status set as LOANED_OUT.", id);
     }

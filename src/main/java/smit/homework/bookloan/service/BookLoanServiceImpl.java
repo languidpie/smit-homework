@@ -4,8 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import smit.homework.bookloan.controller.BookForm;
-import smit.homework.bookloan.controller.BookStatusForm;
+import smit.homework.bookloan.controller.forms.BookForm;
+import smit.homework.bookloan.controller.forms.BookLoanedForm;
+import smit.homework.bookloan.controller.forms.BookReserveForm;
 import smit.homework.bookloan.entity.Book;
 import smit.homework.bookloan.repository.BookRepository;
 
@@ -50,22 +51,17 @@ public class BookLoanServiceImpl implements BookLoanService {
 
     @Override
     public Book updateBook(long id, BookForm bookFormData) {
-        Optional<Book> existingBook = this.findBookById(id);
-
-        if (existingBook.isPresent()) {
-            Book book = existingBook.get();
-            book.setTitle(bookFormData.getTitle());
-            book.setAuthor(bookFormData.getAuthor());
-            book.setPublisher(bookFormData.getPublisher());
-            book.setIsbn(bookFormData.getIsbn());
-            book.setYear(bookFormData.getYear());
-            book.setGenre(bookFormData.getGenre());
-            book.setUpdatedAt(LocalDateTime.now());
-            return this.saveBook(book);
-        } else {
-            //TODO create a custom exception that will be better handled by FE
-            throw new RuntimeException();
-        }
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setTitle(bookFormData.getTitle());
+                    book.setAuthor(bookFormData.getAuthor());
+                    book.setPublisher(bookFormData.getPublisher());
+                    book.setIsbn(bookFormData.getIsbn());
+                    book.setYear(bookFormData.getYear());
+                    book.setGenre(bookFormData.getGenre());
+                    book.setUpdatedAt(LocalDateTime.now());
+                    return this.saveBook(book);
+                }).orElseThrow(RuntimeException::new);
     }
 
     @Override
@@ -84,35 +80,40 @@ public class BookLoanServiceImpl implements BookLoanService {
     }
 
     @Override
-    public void loanBook(long id, BookStatusForm bookStatusForm) {
-        this.updateBookStatus(id, bookStatusForm, Book.BookStatus.LOANED_OUT);
+    public void loanBook(long id, BookLoanedForm bookLoanedForm) {
+        bookRepository.findById(id)
+                .map(book -> {
+                    book.setStatus(Book.BookStatus.LOANED_OUT);
+                    book.setRecipient(bookLoanedForm.getRecipient());
+                    book.setBookReturnAt(bookLoanedForm.getBookReturnAt());
+                    book.setUpdatedAt(LocalDateTime.now());
+
+                    return this.saveBook(book);
+                }).orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public void reserveBook(long id, BookStatusForm bookStatusForm) {
-        this.updateBookStatus(id, bookStatusForm, Book.BookStatus.RESERVED);
+    public void reserveBook(long id, BookReserveForm bookReserveForm) {
+        bookRepository.findById(id)
+                .map(book -> {
+                    book.setStatus(Book.BookStatus.RESERVED);
+                    book.setRecipient(bookReserveForm.getRecipient());
+                    book.setUpdatedAt(LocalDateTime.now());
+
+                    return this.saveBook(book);
+                }).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public void returnBook(long id) {
-        this.updateBookStatus(id, new BookStatusForm(), Book.BookStatus.AVAILABLE);
-    }
+        bookRepository.findById(id)
+                .map(book -> {
+                    book.setStatus(Book.BookStatus.AVAILABLE);
+                    book.setRecipient(null);
+                    book.setBookReturnAt(null);
+                    book.setUpdatedAt(LocalDateTime.now());
 
-    // PRIVATE METHODS
-
-    private void updateBookStatus(long bookId, BookStatusForm bookStatusForm, Book.BookStatus newStatus) {
-        Optional<Book> book = bookRepository.findById(bookId);
-        if (book.isPresent()) {
-            Book bookToBeLoaned = book.get();
-            bookToBeLoaned.setStatus(newStatus);
-            bookToBeLoaned.setRecipient(bookStatusForm.getRecipient());
-            bookToBeLoaned.setBookReturnAt(bookStatusForm.getBookReturnAt());
-            bookToBeLoaned.setUpdatedAt(LocalDateTime.now());
-
-            this.saveBook(bookToBeLoaned);
-        } else {
-            //TODO: throw exception??
-            throw new RuntimeException();
-        }
+                    return this.saveBook(book);
+                }).orElseThrow(RuntimeException::new);
     }
 }

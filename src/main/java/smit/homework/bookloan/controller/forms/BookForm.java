@@ -1,4 +1,4 @@
-package smit.homework.bookloan.controller;
+package smit.homework.bookloan.controller.forms;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

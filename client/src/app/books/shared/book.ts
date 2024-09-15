@@ -4,7 +4,7 @@ export class Book {
   author!: string;
   publisher!: string;
   isbn!: string;
-  year!: number;
+  year!: number | null;
   genre!: string;
   status!: string;
   recipient!: string;
