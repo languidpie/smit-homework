@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
+ * Form object for reserving a book.
+ *
  * @author Mari-Liis Pihlapuu
  * Date: 15.09.2024
  */

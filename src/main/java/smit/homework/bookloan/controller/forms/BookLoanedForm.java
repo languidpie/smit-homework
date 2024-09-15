@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 /**
+ * Form object for loaning out a book.
+ *
  * @author Mari-Liis Pihlapuu
  * Date: 15.09.2024
  */
