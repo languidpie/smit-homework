@@ -3,12 +3,14 @@
   <p>Who would it be loaned to?</p>
   <mat-form-field>
     <mat-label>Name of recipient</mat-label>
-    <input matInput [(ngModel)]="book.recipient" />
+    <input matInput [(ngModel)]="book.recipient" name="recipient" #recipient="ngModel"/>
+    <mat-error *ngIf="recipient.invalid && recipient.touched">Recipient is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Choose date of return</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="book.bookReturnAt" >
+    <input matInput [matDatepicker]="picker" [(ngModel)]="book.bookReturnAt" name="bookReturnDate" #bookReturnDate="ngModel">
+    <mat-error *ngIf="bookReturnDate.invalid && bookReturnDate.touched">Author is required</mat-error>
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>

@@ -3,7 +3,8 @@
   <p>Who would it be reserved to?</p>
   <mat-form-field>
     <mat-label>Name of recipient</mat-label>
-    <input matInput [(ngModel)]="book.recipient" />
+    <input matInput [(ngModel)]="book.recipient" name="recipient" required #recipient="ngModel"/>
+    <mat-error *ngIf="recipient.invalid && recipient.touched">Recipient is required</mat-error>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
