@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smit.homework.bookloan.controller.BookForm;
+import smit.homework.bookloan.controller.BookStatusForm;
 import smit.homework.bookloan.entity.Book;
 import smit.homework.bookloan.repository.BookRepository;
 
@@ -81,27 +82,30 @@ public class BookLoanServiceImpl implements BookLoanService {
     }
 
     @Override
-    public void loanBook(long bookId) {
-        this.updateBookStatus(bookId, Book.BookStatus.LOANED_OUT);
+    public void loanBook(long bookId, BookStatusForm bookStatusForm) {
+        this.updateBookStatus(bookId, bookStatusForm, Book.BookStatus.LOANED_OUT);
     }
 
     @Override
-    public void reserveBook(long bookId) {
-        this.updateBookStatus(bookId, Book.BookStatus.RESERVED);
+    public void reserveBook(long bookId, BookStatusForm bookStatusForm) {
+        this.updateBookStatus(bookId, bookStatusForm, Book.BookStatus.RESERVED);
     }
 
     @Override
     public void removeReservation(long bookId) {
-        this.updateBookStatus(bookId, Book.BookStatus.AVAILABLE);
+        this.updateBookStatus(bookId, new BookStatusForm(), Book.BookStatus.AVAILABLE);
     }
 
     // PRIVATE METHODS
 
-    private void updateBookStatus(long bookId, Book.BookStatus newStatus) {
+    private void updateBookStatus(long bookId, BookStatusForm bookStatusForm, Book.BookStatus newStatus) {
         Optional<Book> book = bookRepository.findById(bookId);
         if (book.isPresent()) {
             Book bookToBeLoaned = book.get();
             bookToBeLoaned.setStatus(newStatus);
+            bookToBeLoaned.setRecipient(bookStatusForm.getRecipient());
+            bookToBeLoaned.setBookReturnAt(bookStatusForm.getBookReturnAt());
+            bookToBeLoaned.setUpdatedAt(LocalDateTime.now());
 
             this.saveBook(bookToBeLoaned);
         } else {

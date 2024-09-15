@@ -5,11 +5,12 @@ import {BookService} from "../../core/book.service";
 import {ReservePopupService} from "../../popup/reserve-popup.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DialogData} from "../book-list/book-list.component";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-book-reserve',
   templateUrl: './book-reserve.component.html',
-  styleUrl: './book-reserve.component.css'
+  styleUrl: './book-reserve.component.css',
 })
 export class BookReserveComponent {
   readonly dialogRef = inject(MatDialogRef<BookReserveComponent>);
@@ -20,12 +21,14 @@ export class BookReserveComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private bookService: BookService,
-              private reservePopupService: ReservePopupService) {
+              private reservePopupService: ReservePopupService,
+              private datePipe: DatePipe) {
     this.book = this.bookData();
   }
 
   onReserve(book: Book) {
     console.log('Reserving book:', book);
+    book.bookReturnAt = this.datePipe.transform(this.book.bookReturnAt, 'yyyy-MM-ddTHH:mm:ss');
     this.bookService.reserve(book).subscribe(result => this.reservePopupService.closePopup());
   }
 

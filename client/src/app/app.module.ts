@@ -51,7 +51,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [BookService, provideAnimationsAsync()],
+  providers: [BookService, provideAnimationsAsync(), DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

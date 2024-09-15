@@ -3,11 +3,15 @@ package smit.homework.bookloan.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import smit.homework.bookloan.entity.Book;
 import smit.homework.bookloan.service.BookLoanService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +27,12 @@ public class BookLoanController {
 
     @Autowired
     private BookLoanService bookLoanService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
 
     @GetMapping
     public ResponseEntity<List<Book>> findAllBooks() {
@@ -53,17 +63,17 @@ public class BookLoanController {
     }
 
     @PutMapping("/{id}/reserve")
-    public void reserveBook(@PathVariable long id) {
+    public void reserveBook(@PathVariable long id, @RequestBody @Valid BookStatusForm bookStatusForm) {
         log.info("Attempting to reserve book.");
 
-        bookLoanService.reserveBook(id);
+        bookLoanService.reserveBook(id, bookStatusForm);
     }
 
     @PutMapping("/{id}/loan")
-    public void loanBook(@PathVariable long id) {
+    public void loanBook(@PathVariable long id, @RequestBody @Valid BookStatusForm bookStatusForm) {
         log.info("Attempting to loan book.");
 
-        bookLoanService.loanBook(id);
+        bookLoanService.loanBook(id, bookStatusForm);
     }
 
     @DeleteMapping("/{id}")

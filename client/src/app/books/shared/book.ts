@@ -8,6 +8,6 @@ export class Book {
   genre!: string;
   status!: string;
   recipient!: string;
-  bookReturnAt!: string;
+  bookReturnAt!: string | null;
   updatedAt!: string;
 }

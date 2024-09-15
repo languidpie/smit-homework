@@ -1,6 +1,8 @@
 package smit.homework.bookloan.service;
 
+import jakarta.validation.Valid;
 import smit.homework.bookloan.controller.BookForm;
+import smit.homework.bookloan.controller.BookStatusForm;
 import smit.homework.bookloan.entity.Book;
 
 import java.util.List;
@@ -40,9 +42,9 @@ public interface BookLoanService {
      */
     void deleteBook(long id);
 
-    void loanBook(long bookId);
+    void loanBook(long bookId, BookStatusForm bookStatusForm);
 
-    void reserveBook(long bookId);
+    void reserveBook(long bookId, BookStatusForm bookStatusForm);
 
     void removeReservation(long bookId);
 }
