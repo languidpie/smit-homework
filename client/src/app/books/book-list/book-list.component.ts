@@ -8,6 +8,7 @@ import {catchError, map, merge, startWith, switchMap, Observable, of as observab
 import {MatSort} from '@angular/material/sort';
 import {BookLoanComponent} from "../book-loan/book-loan.component";
 import {BookDeleteComponent} from "../book-delete/book-delete.component";
+import {BookEditComponent} from "../book-edit/book-edit.component";
 
 export interface DialogData {
   book: Book;
@@ -46,6 +47,16 @@ export class BookListComponent implements AfterViewInit {
 
   openLoanPopup(book: Book) {
     const dialogRef = this.dialog.open(BookLoanComponent, {
+      data: {book: book},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditPopup(book: Book) {
+    const dialogRef = this.dialog.open(BookEditComponent, {
       data: {book: book},
     });
 

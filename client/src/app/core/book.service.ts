@@ -23,6 +23,10 @@ export class BookService {
     return this.http.post<Book>(this.booksUrl, book);
   }
 
+  public editBook(book: Book) {
+    return this.http.put<Book>(this.booksUrl + '/' + book.id, book);
+  }
+
   public reserve(book: Book) {
     return this.http.put<Book>(this.booksUrl + '/' + book.id + '/reserve', book);
   }

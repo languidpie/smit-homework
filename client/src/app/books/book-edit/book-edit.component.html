@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Edit Book</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="book.title" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Author</mat-label>
+    <input matInput [(ngModel)]="book.author" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Publisher</mat-label>
+    <input matInput [(ngModel)]="book.publisher" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ISBN</mat-label>
+    <input matInput [(ngModel)]="book.isbn" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Year</mat-label>
+    <input matInput [(ngModel)]="book.year" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Genre</mat-label>
+    <mat-select [(ngModel)]="book.genre">
+      <mat-option *ngFor="let genre of genres" [value]="genre">
+        {{ genre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onEdit(book)">Edit</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Close</button>
+</mat-dialog-actions>
