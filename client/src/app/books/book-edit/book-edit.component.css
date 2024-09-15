@@ -1,0 +1,23 @@
+/* Ensure dialog content has padding and fields are stacked */
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between fields */
+}
+
+/* Optional: Style for mat-form-field to ensure full width */
+mat-form-field {
+  width: 100%;
+}
+
+/* Ensure buttons in mat-dialog-actions are spaced and aligned */
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 8px; /* Space between buttons */
+}
+
+/* Optional: Style for dialog title */
+h2[mat-dialog-title] {
+  margin: 0;
+}

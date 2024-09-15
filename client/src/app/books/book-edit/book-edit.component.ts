@@ -31,6 +31,6 @@ export class BookEditComponent {
   }
 
   onEdit(book: Book) {
-    this.bookService.editBook(this.book).subscribe(result => this.popupService.closePopup());
+    this.bookService.editBook(book).subscribe(result => this.popupService.closePopup());
   }
 }
