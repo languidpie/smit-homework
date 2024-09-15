@@ -53,17 +53,17 @@ public class BookLoanController {
     }
 
     @PutMapping("/{id}/reserve")
-    public ResponseEntity<Book> reserveBook(@PathVariable long id) {
+    public void reserveBook(@PathVariable long id) {
         log.info("Attempting to reserve book.");
-        // TODO: to be implemented
-        return ResponseEntity.noContent().build();
+
+        bookLoanService.reserveBook(id);
     }
 
     @PutMapping("/{id}/loan")
-    public ResponseEntity<Book> loanBook(@PathVariable long id) {
+    public void loanBook(@PathVariable long id) {
         log.info("Attempting to loan book.");
-        // TODO: to be implemented
-        return ResponseEntity.noContent().build();
+
+        bookLoanService.loanBook(id);
     }
 
     @DeleteMapping("/{id}")

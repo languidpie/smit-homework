@@ -51,6 +51,20 @@ app.controller("BookLoanController", function ($scope, $http) {
         }).then(_success, _error);
     };
 
+    $scope.reserveBook = function (book) {
+        $http({
+            method : 'PUT',
+            url : 'api/books/' + book.id + '/reserve',
+        }).then(_success, _error);
+    };
+
+    $scope.loanBook = function (book) {
+        $http({
+            method : 'PUT',
+            url : 'api/books/' + book.id + '/loan',
+        }).then(_success, _error);
+    }
+
     /* Private Methods */
 
     //HTTP GET- get all customers collection

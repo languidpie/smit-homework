@@ -1,0 +1,44 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Year</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Status</th>
+        <th scope="col">Recipient</th>
+        <th scope="col">Return Date</th>
+        <th scope="col">Last Update</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.year }}</td>
+        <td>{{ book.genre }}</td>
+        <td>{{ book.status }}</td>
+        <td>{{ book.recipient }}</td>
+        <td>{{ book.bookReturnAt | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ book.updatedAt | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td><button type="button" class="btn btn-primary">RESERVE</button></td>
+        <td><button type="button" class="btn btn-success">LOAN</button></td>
+        <td><button type="button" class="btn btn-warning">EDIT</button></td>
+        <td><button type="button" class="btn btn-danger">DELETE</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
