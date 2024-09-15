@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Book} from "../shared/book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BookService} from "../../core/book.service";
+import {BookConstants} from "../shared/book.constants";
 
 @Component({
   selector: 'app-book-form',
@@ -10,56 +11,15 @@ import {BookService} from "../../core/book.service";
 })
 export class BookFormComponent {
   book: Book;
-
-  genres: string[] = [
-    "Action",
-    "Adventure",
-    "Animated",
-    "Biography",
-    "Comedy",
-    "Crime",
-    "Dance",
-    "Disaster",
-    "Documentary",
-    "Drama",
-    "Erotic",
-    "Family",
-    "Fantasy",
-    "Found Footage",
-    "Historical",
-    "Horror",
-    "Independent",
-    "Legal",
-    "Live Action",
-    "Martial Arts",
-    "Musical",
-    "Mystery",
-    "Noir",
-    "Performance",
-    "Political",
-    "Romance",
-    "Satire",
-    "Science Fiction",
-    "Short",
-    "Silent",
-    "Slasher",
-    "Sports",
-    "Spy",
-    "Superhero",
-    "Supernatural",
-    "Suspense",
-    "Teen",
-    "Thriller",
-    "War",
-    "Western"
-  ];
-
+  genres: string[];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private bookService: BookService) {
+    private bookService: BookService,
+    private constants: BookConstants) {
     this.book = new Book();
+    this.genres = constants.GENRES;
   }
 
   onSubmit() {
@@ -69,4 +29,6 @@ export class BookFormComponent {
   gotoBookList() {
     this.router.navigate(['/books']);
   }
+
+  protected readonly BookConstants = BookConstants;
 }
