@@ -7,6 +7,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {catchError, map, merge, startWith, switchMap, Observable, of as observableOf} from "rxjs";
 import {MatSort} from '@angular/material/sort';
 import {BookLoanComponent} from "../book-loan/book-loan.component";
+import {BookDeleteComponent} from "../book-delete/book-delete.component";
 
 export interface DialogData {
   book: Book;
@@ -45,6 +46,16 @@ export class BookListComponent implements AfterViewInit {
 
   openLoanPopup(book: Book) {
     const dialogRef = this.dialog.open(BookLoanComponent, {
+      data: {book: book},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDeletePopup(book: Book) {
+    const dialogRef = this.dialog.open(BookDeleteComponent, {
       data: {book: book},
     });
 

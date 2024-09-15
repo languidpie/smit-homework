@@ -30,4 +30,8 @@ export class BookService {
   public loan(book: Book) {
     return this.http.put<Book>(this.booksUrl + '/' + book.id + '/loan', book);
   }
+
+  public delete(book: Book) {
+    return this.http.delete<Book>(this.booksUrl + '/' + book.id);
+  }
 }

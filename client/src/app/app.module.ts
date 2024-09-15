@@ -32,6 +32,7 @@ import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
+import { BookDeleteComponent } from './books/book-delete/book-delete.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatIcon} from "@angular/material/icon";
     BookListComponent,
     BookFormComponent,
     BookReserveComponent,
-    BookLoanComponent
+    BookLoanComponent,
+    BookDeleteComponent
   ],
   imports: [
     BrowserModule,
