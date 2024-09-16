@@ -116,4 +116,15 @@ public class BookLoanServiceImpl implements BookLoanService {
                     return this.saveBook(book);
                 }).orElseThrow(RuntimeException::new);
     }
+
+    @Override
+    public void markAsReceived(long id) {
+        bookRepository.findById(id)
+                .map(book -> {
+                    book.setStatus(Book.BookStatus.RECEIVED);
+                    book.setUpdatedAt(LocalDateTime.now());
+
+                    return this.saveBook(book);
+                }).orElseThrow(RuntimeException::new);
+    }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Book} from "../books/shared/book";
 import {SortDirection} from "@angular/material/sort";
@@ -15,8 +15,16 @@ export class BookService {
     this.booksUrl = 'http://localhost:8080/api/books';
   }
 
+  private createAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + localStorage.getItem('authToken')
+    });
+  }
+
   public findAll(sort: string, order: SortDirection, page: number): Observable<Book[]> {
-    return this.http.get<Book[]>(this.booksUrl + '?sort='+ sort +'&order='+ order +'&page=' + page);
+    const headers = this.createAuthHeaders();
+    return this.http.get<Book[]>(this.booksUrl + '?sort='+ sort +'&order='+ order +'&page=' + page, { headers });
   }
 
   public save(book: Book) {

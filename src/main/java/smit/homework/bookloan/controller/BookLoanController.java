@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import smit.homework.bookloan.controller.forms.BookForm;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping("/api/books")
 public class BookLoanController {
 
@@ -39,7 +41,7 @@ public class BookLoanController {
 
     @GetMapping
     public ResponseEntity<List<Book>> findAllBooks() {
-        log.info("Searching for all books.");
+        log.info("[{}] Searching for all books.", SecurityContextHolder.getContext().getAuthentication().getName());
 
         List<Book> books = bookLoanService.findAllBooks();
 
@@ -73,7 +75,7 @@ public class BookLoanController {
         return ResponseEntity.ok(newBook);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/edit")
     public ResponseEntity<Book> updateBook(@PathVariable long id, @RequestBody @Valid BookForm bookForm) {
         log.info("Attempting to update book with id={}.", id);
 
@@ -111,6 +113,14 @@ public class BookLoanController {
         log.info("Book with id={} status set as AVAILABLE.", id);
     }
 
+    @PutMapping("/{id}/received")
+    public void receivedBook(@PathVariable long id) {
+        log.info("Attempting to receive book with id={}.", id);
+
+        bookLoanService.markAsReceived(id);
+        log.info("Book with id={} status set as RECEIVED.", id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable long id) {
         log.info("Attempting to delete book with id={}.", id);
@@ -119,4 +129,5 @@ public class BookLoanController {
 
         log.info("Book with id={} deleted.", id);
     }
+
 }

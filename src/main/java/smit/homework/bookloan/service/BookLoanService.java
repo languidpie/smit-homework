@@ -63,7 +63,7 @@ public interface BookLoanService {
     void deleteBook(long id);
 
     /**
-     * Loans a book to a recipient.
+     * Loans a book to a user.
      *
      * @param id the identifier of the book
      * @param bookLoanedForm the form data for the operation
@@ -71,7 +71,7 @@ public interface BookLoanService {
     void loanBook(long id, BookLoanedForm bookLoanedForm);
 
     /**
-     * Reserves a book to a recipient.
+     * Reserves a book to a user.
      *
      * @param id the identifier of the book
      * @param bookReserveForm the form data for the operation
@@ -84,4 +84,11 @@ public interface BookLoanService {
      * @param id the identifier of the book
      */
     void returnBook(long id);
+
+    /**
+     * Marks the book as being received by the user.
+     *
+     * @param id the identifier of the book
+     */
+    void markAsReceived(long id);
 }

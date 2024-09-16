@@ -43,6 +43,7 @@ public class Book {
     public enum BookStatus {
         AVAILABLE,
         LOANED_OUT,
-        RESERVED
+        RESERVED,
+        RECEIVED
     }
 }

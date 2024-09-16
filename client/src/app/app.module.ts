@@ -34,6 +34,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import { BookDeleteComponent } from './books/book-delete/book-delete.component';
 import { BookEditComponent } from './books/book-edit/book-edit.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { BookEditComponent } from './books/book-edit/book-edit.component';
     BookReserveComponent,
     BookLoanComponent,
     BookDeleteComponent,
-    BookEditComponent
+    BookEditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

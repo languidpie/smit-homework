@@ -1,12 +1,15 @@
 <mat-toolbar color="primary">
   <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <span [hidden]="!authenticated">Welcome, {{ userName }}!</span>
 
   <!-- Spacer to push menu items to the right -->
   <span class="spacer"></span>
 
   <!-- Buttons for navigation -->
-  <button mat-button routerLink="/books">List Books</button>
-  <button mat-button routerLink="/addbook">Add Book</button>
+  <button mat-button [hidden]="!authenticated" routerLink="/books">List Books</button>
+  <button mat-button [hidden]="!authenticated" routerLink="/addbook">Add Book</button>
+  <button mat-button [hidden]="!authenticated" (click)="logout()">Log out</button>
 </mat-toolbar>
 
 <!-- Main content rendered below the toolbar -->
