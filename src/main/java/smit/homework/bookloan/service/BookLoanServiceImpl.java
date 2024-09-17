@@ -8,6 +8,7 @@ import smit.homework.bookloan.controller.forms.BookForm;
 import smit.homework.bookloan.controller.forms.BookLoanedForm;
 import smit.homework.bookloan.controller.forms.BookReserveForm;
 import smit.homework.bookloan.entity.Book;
+import smit.homework.bookloan.exception.BookNotFoundException;
 import smit.homework.bookloan.repository.BookRepository;
 
 import java.time.LocalDateTime;
@@ -61,7 +62,7 @@ public class BookLoanServiceImpl implements BookLoanService {
                     book.setGenre(bookFormData.getGenre());
                     book.setUpdatedAt(LocalDateTime.now());
                     return this.saveBook(book);
-                }).orElseThrow(RuntimeException::new);
+                }).orElseThrow(BookNotFoundException::new);
     }
 
     @Override
@@ -89,7 +90,7 @@ public class BookLoanServiceImpl implements BookLoanService {
                     book.setUpdatedAt(LocalDateTime.now());
 
                     return this.saveBook(book);
-                }).orElseThrow(RuntimeException::new);
+                }).orElseThrow(BookNotFoundException::new);
     }
 
     @Override
@@ -101,7 +102,7 @@ public class BookLoanServiceImpl implements BookLoanService {
                     book.setUpdatedAt(LocalDateTime.now());
 
                     return this.saveBook(book);
-                }).orElseThrow(RuntimeException::new);
+                }).orElseThrow(BookNotFoundException::new);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class BookLoanServiceImpl implements BookLoanService {
                     book.setUpdatedAt(LocalDateTime.now());
 
                     return this.saveBook(book);
-                }).orElseThrow(RuntimeException::new);
+                }).orElseThrow(BookNotFoundException::new);
     }
 
     @Override
@@ -125,6 +126,6 @@ public class BookLoanServiceImpl implements BookLoanService {
                     book.setUpdatedAt(LocalDateTime.now());
 
                     return this.saveBook(book);
-                }).orElseThrow(RuntimeException::new);
+                }).orElseThrow(BookNotFoundException::new);
     }
 }
