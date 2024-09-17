@@ -32,14 +32,14 @@ export class AuthService {
     return authToken !== null && authToken !== undefined;
   }
 
-  isRoleUser() {
+  isRoleUser(): boolean {
     const userRole = localStorage.getItem('userRole');
-    return userRole !== null && userRole !== undefined && userRole === 'ROLE_USER';
+    return userRole === 'ROLE_USER';
   }
 
-  isRoleAdmin() {
+  isRoleAdmin(): boolean {
     const userRole = localStorage.getItem('userRole');
-    return userRole !== null && userRole !== undefined && userRole === 'ROLE_ADMIN';
+    return userRole === 'ROLE_ADMIN';
   }
 
   getUserName() {

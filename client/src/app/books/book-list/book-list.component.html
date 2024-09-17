@@ -96,7 +96,7 @@
           <th mat-header-cell *matHeaderCellDef>
           </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-button *ngIf="row.status === 'LOANED_OUT' || row.status === 'RESERVED'" (click)="returnBook(row)">Release</button>
+            <button mat-button *ngIf="row.status === 'LOANED_OUT' || row.status === 'RESERVED'" (click)="returnBook(row)">Mark as returned</button>
           </td>
         </ng-container>
 

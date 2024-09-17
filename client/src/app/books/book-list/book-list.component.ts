@@ -9,6 +9,7 @@ import {MatSort} from '@angular/material/sort';
 import {BookLoanComponent} from "../book-loan/book-loan.component";
 import {BookDeleteComponent} from "../book-delete/book-delete.component";
 import {BookEditComponent} from "../book-edit/book-edit.component";
+import {AuthService} from "../../auth.service";
 
 export interface DialogData {
   book: Book;
@@ -23,16 +24,40 @@ export class BookListComponent implements AfterViewInit {
   readonly dialog = inject(MatDialog);
   books: Book[] = [];
 
-  displayedColumns: string[] = ['id', 'title', 'author', 'publisher', 'isbn', 'year', 'genre', 'status', 'recipient', 'bookReturnAt', 'updatedAt', 'returnColumn', 'reserveColumn', 'loanColumn', 'editColumn', 'deleteColumn'];
+  displayedColumns: string[] = this.getDisplayedColumns();
 
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort,{static:false}) sort!: MatSort;
+  @ViewChild(MatSort, {static: false}) sort!: MatSort;
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService,
+              private authService: AuthService) {
+  }
+
+  getDisplayedColumns(): string[] {
+    let columns = ['id', 'title', 'author', 'publisher', 'isbn', 'year', 'genre', 'status', 'recipient', 'bookReturnAt', 'updatedAt', 'returnColumn', 'reserveColumn'];
+
+    if (this.isRoleAdmin()) {
+      columns.push('deleteColumn');
+      columns.push('editColumn');
+      columns.push('loanColumn');
+    }
+
+    return columns;
+  }
+
+  // TODO: figure out why authService is undefined and if fixed, use the methods in the service
+  isRoleUser(): boolean {
+    const userRole = localStorage.getItem('userRole');
+    return userRole === 'ROLE_USER';
+  }
+
+  isRoleAdmin(): boolean {
+    const userRole = localStorage.getItem('userRole');
+    return userRole === 'ROLE_ADMIN';
   }
 
   openReservePopup(book: Book) {
@@ -124,5 +149,5 @@ export class BookListComponent implements AfterViewInit {
         }),
       )
       .subscribe(data => (this.books = data));
-}
+  }
 }
