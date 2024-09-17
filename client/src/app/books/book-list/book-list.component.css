@@ -7,66 +7,99 @@ html, body {
   flex-direction: column;
 }
 
+/* Full-page container */
 .full-page {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Full height of the viewport */
-  margin: 0;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  overflow: hidden; /* Prevent scrollbars */
+  background-color: #d0d0d0; /* Light grey matching the table header color */
 }
 
-/* Structure */
+/* Book container styling */
 .book-container {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Ensures the container fills the remaining vertical space */
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: hidden; /* Prevent content from overflowing outside the container */
+  background-color: #ffffff; /* White background for container */
+  border-radius: 8px; /* Slightly rounded corners */
+  overflow: hidden; /* Prevent overflow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  position: relative; /* Position relative to contain loading shade */
+  padding: 20px; /* Padding inside the container */
+  box-sizing: border-box; /* Include padding in width/height */
 }
 
+/* Search container styling */
+.search-container {
+  background-color: #ffffff; /* White background for search container */
+  padding: 10px; /* Padding inside the search container */
+  border-radius: 8px; /* Match border radius with book-container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for search container */
+  margin-bottom: 20px; /* Margin below the search container */
+}
+
+/* Table container styling */
 .book-table-container {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Expands to fill available space */
-  overflow-y: auto; /* Adds vertical scroll if content exceeds height */
+  overflow-x: auto; /* Enable horizontal scrolling on smaller screens */
 }
 
-table {
+/* Table styling */
+.book-table {
   width: 100%;
-  flex-grow: 1; /* Ensures the table stretches to fill available space */
+  border-collapse: collapse;
 }
 
+/* Header cell styling */
+.mat-header-cell {
+  background-color: #d0d0d0; /* Light grey for header */
+  font-weight: bold;
+  padding: 12px; /* Increased padding for header cells */
+}
+
+/* Table cell styling */
+.mat-cell {
+  padding: 12px; /* Increased padding for cells */
+}
+
+/* Loading shade styling */
 .book-loading-shade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 56px;
   right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent overlay */
+  z-index: 10; /* Ensure it sits above other content */
 }
 
+/* Rate limit reached message */
 .book-rate-limit-reached {
-  max-width: 360px;
+  color: #d9534f; /* Bootstrap red color for error */
+  font-weight: bold;
   text-align: center;
+  margin-top: 10px;
 }
 
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-  width: 64px;
+/* Button styles */
+.mat-button {
+  margin: 2px; /* Add spacing between buttons */
 }
 
-.mat-column-created {
-  width: 124px;
+.mat-button:hover {
+  background-color: #e0e0e0; /* Light background on hover */
 }
 
-/* book-list.component.css or .scss */
+/* Spinner styles */
+.mat-spinner {
+  color: #3f51b5; /* Match your primary color or keep default */
+}
+
+/* Status styling */
 .status-available {
   color: green;
 }

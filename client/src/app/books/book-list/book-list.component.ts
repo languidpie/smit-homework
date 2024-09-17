@@ -23,6 +23,7 @@ export interface DialogData {
 export class BookListComponent implements AfterViewInit {
   readonly dialog = inject(MatDialog);
   books: Book[] = [];
+  filteredBooks: Book[] = [];
 
   displayedColumns: string[] = this.getDisplayedColumns();
 
@@ -140,6 +141,8 @@ export class BookListComponent implements AfterViewInit {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = data === null;
+          this.books = data || [];
+          this.filteredBooks = data || []; // Initialize filteredBooks with all books
 
           if (data === null) {
             return [];
@@ -153,5 +156,17 @@ export class BookListComponent implements AfterViewInit {
         }),
       )
       .subscribe(data => (this.books = data));
+  }
+
+  applyFilter(event: Event) {
+    const input = event.target as HTMLInputElement;
+    console.log(input.value)
+    const query = input?.value.trim().toLowerCase() || ''; // Handle null or undefined value
+
+    this.filteredBooks = this.books.filter(book => {
+      return book.title.toLowerCase().includes(query) ||
+        book.author.toLowerCase().includes(query) ||
+        book.publisher?.toLowerCase().includes(query);
+    });
   }
 }
