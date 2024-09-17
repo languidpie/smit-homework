@@ -11,6 +11,7 @@ import smit.homework.bookloan.controller.forms.BookForm;
 import smit.homework.bookloan.controller.forms.BookLoanedForm;
 import smit.homework.bookloan.controller.forms.BookReserveForm;
 import smit.homework.bookloan.entity.Book;
+import smit.homework.bookloan.exception.BookNotFoundException;
 import smit.homework.bookloan.repository.BookRepository;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -121,6 +123,19 @@ class BookLoanServiceImplTest {
     }
 
     @Test
+    void should_throw_exception_when_book_is_not_found_during_update() {
+        // given
+        given(bookRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        // when
+        BookNotFoundException throwable = (BookNotFoundException) catchThrowable(() ->  bookLoanService.updateBook(101L, new BookForm()));
+
+        // then
+        assertThat(throwable)
+                .hasMessage("Book not found");
+    }
+
+    @Test
     void should_find_book_by_id() {
         // given
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(this.book));
@@ -190,6 +205,19 @@ class BookLoanServiceImplTest {
     }
 
     @Test
+    void should_throw_exception_when_book_is_not_found_during_loan_out() {
+        // given
+        given(bookRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        // when
+        BookNotFoundException throwable = (BookNotFoundException) catchThrowable(() ->  bookLoanService.loanBook(101L, new BookLoanedForm()));
+
+        // then
+        assertThat(throwable)
+                .hasMessage("Book not found");
+    }
+
+    @Test
     void should_reserve_book_based_on_form_data() {
         // given
         BookReserveForm reserveForm = new BookReserveForm();
@@ -210,6 +238,19 @@ class BookLoanServiceImplTest {
                 .isEqualTo(reserveForm.getRecipient());
         assertThat(captor.getValue())
                 .isNotNull();
+    }
+
+    @Test
+    void should_throw_exception_when_book_is_not_found_during_reserve() {
+        // given
+        given(bookRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        // when
+        BookNotFoundException throwable = (BookNotFoundException) catchThrowable(() ->  bookLoanService.reserveBook(101L, new BookReserveForm()));
+
+        // then
+        assertThat(throwable)
+                .hasMessage("Book not found");
     }
 
     @Test
@@ -235,6 +276,19 @@ class BookLoanServiceImplTest {
     }
 
     @Test
+    void should_throw_exception_when_book_is_not_found_during_return() {
+        // given
+        given(bookRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        // when
+        BookNotFoundException throwable = (BookNotFoundException) catchThrowable(() ->  bookLoanService.returnBook(101L));
+
+        // then
+        assertThat(throwable)
+                .hasMessage("Book not found");
+    }
+
+    @Test
     void should_mark_book_as_received() {
         // given
         given(bookRepository.findById(1L)).willReturn(Optional.of(this.book));
@@ -250,5 +304,18 @@ class BookLoanServiceImplTest {
                 .isEqualTo(Book.BookStatus.RECEIVED);
         assertThat(captor.getValue().getUpdatedAt())
                 .isNotNull();
+    }
+
+    @Test
+    void should_throw_exception_when_book_is_not_found_during_mark_as_received() {
+        // given
+        given(bookRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        // when
+        BookNotFoundException throwable = (BookNotFoundException) catchThrowable(() ->  bookLoanService.loanBook(101L, new BookLoanedForm()));
+
+        // then
+        assertThat(throwable)
+                .hasMessage("Book not found");
     }
 }
