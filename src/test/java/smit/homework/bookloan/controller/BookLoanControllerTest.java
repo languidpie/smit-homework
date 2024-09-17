@@ -117,6 +117,18 @@ class BookLoanControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void should_give_404_not_found_when_book_not_found() throws Exception {
+        // given
+        when(bookLoanService.findBookById(anyLong())).thenReturn(Optional.empty());
+
+        // when
+        this.mockMvc.perform(get("/api/books/1"))
+                // then
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void should_add_new_book() throws Exception {
         // given
         Book newBook = Book.builder()
@@ -148,6 +160,22 @@ class BookLoanControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.isbn").value(newBook.getIsbn()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.year").value(newBook.getYear()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value(newBook.getGenre()));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void should_return_400_bad_request_when_validation_fails_during_save() throws Exception {
+        // given
+
+        // when
+        mockMvc.perform(post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new BookForm())))
+                // then
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Title is mandatory"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Author is mandatory"));
     }
 
     @Test

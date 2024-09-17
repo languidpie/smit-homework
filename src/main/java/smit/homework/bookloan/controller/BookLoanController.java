@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import smit.homework.bookloan.controller.forms.BookForm;
@@ -41,7 +40,7 @@ public class BookLoanController {
 
     @GetMapping
     public ResponseEntity<List<Book>> findAllBooks() {
-        log.info("[{}] Searching for all books.", SecurityContextHolder.getContext().getAuthentication().getName());
+        log.info("Searching for all books.");
 
         List<Book> books = bookLoanService.findAllBooks();
 
