@@ -51,7 +51,7 @@ public class BookLoanController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> findBookById(@PathVariable Integer id) {
+    public ResponseEntity<Book> findBookById(@PathVariable long id) {
         log.info("Searching for book by id={}", id);
 
         return bookLoanService.findBookById(id)
@@ -76,7 +76,7 @@ public class BookLoanController {
     }
 
     @PutMapping("/{id}/edit")
-    public ResponseEntity<Book> updateBook(@PathVariable long id, @RequestBody @Valid BookForm bookForm) {
+    public ResponseEntity<Book> updateBook(@PathVariable long id, @RequestBody BookForm bookForm) {
         log.info("Attempting to update book with id={}.", id);
 
         Book updatedBook = bookLoanService.updateBook(id, bookForm);
