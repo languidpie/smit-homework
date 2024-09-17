@@ -5,7 +5,7 @@ import {BookService} from "../../core/book.service";
 import {PopupService} from "../../popup/popup.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DialogData} from "../book-list/book-list.component";
-import {DatePipe} from "@angular/common";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-book-reserve',
@@ -21,15 +21,17 @@ export class BookReserveComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private bookService: BookService,
-              private popupService: PopupService) {
+              private popupService: PopupService,
+              private authService: AuthService) {
     this.book = this.bookData();
   }
 
   onReserve(book: Book) {
+    book.recipient = localStorage.getItem('userName') || '';
     this.bookService.reserve(book).subscribe(result => this.popupService.closePopup());
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  isRoleUser() {
+    return this.authService.isRoleUser();
   }
 }

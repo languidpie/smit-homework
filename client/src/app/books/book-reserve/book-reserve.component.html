@@ -1,13 +1,15 @@
 <h2 mat-dialog-title>Book Reservation</h2>
 <mat-dialog-content>
-  <p>Who would it be reserved to?</p>
-  <mat-form-field>
+  <p *ngIf="isRoleUser()">Are you sure you want to reserve this book?</p>
+  <p *ngIf="!isRoleUser()">Who would it be reserved to?</p>
+  <mat-form-field *ngIf="!isRoleUser()">
     <mat-label>Name of recipient</mat-label>
     <input matInput [(ngModel)]="book.recipient" name="recipient" required #recipient="ngModel"/>
     <mat-error *ngIf="recipient.invalid && recipient.touched">Recipient is required</mat-error>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onReserve(book)">Reserve</button>
-  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Close</button>
+  <button mat-button (click)="onReserve(book)" cdkFocusInitial>Reserve</button>
+  <button mat-button [mat-dialog-close]="">Close</button>
 </mat-dialog-actions>
+

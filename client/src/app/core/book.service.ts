@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Book} from "../books/shared/book";
 import {SortDirection} from "@angular/material/sort";
 
+//TODO: refactor
 @Injectable({
   providedIn: 'root'
 })
@@ -28,26 +29,32 @@ export class BookService {
   }
 
   public save(book: Book) {
-    return this.http.post<Book>(this.booksUrl, book);
+    const headers = this.createAuthHeaders();
+    return this.http.post<Book>(this.booksUrl, book, { headers });
   }
 
   public editBook(book: Book) {
-    return this.http.put<Book>(this.booksUrl + '/' + book.id, book);
+    const headers = this.createAuthHeaders();
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/edit', book, { headers });
   }
 
   public reserve(book: Book) {
-    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/reserve', book);
+    const headers = this.createAuthHeaders();
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/reserve', book, { headers });
   }
 
   public loan(book: Book) {
-    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/loan', book);
+    const headers = this.createAuthHeaders();
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/loan', book, { headers });
   }
 
   public delete(book: Book) {
-    return this.http.delete<Book>(this.booksUrl + '/' + book.id);
+    const headers = this.createAuthHeaders();
+    return this.http.delete<Book>(this.booksUrl + '/' + book.id, { headers });
   }
 
   public returnBook(book: Book) {
-    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/return', book);
+    const headers = this.createAuthHeaders();
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/return', book, { headers });
   }
 }

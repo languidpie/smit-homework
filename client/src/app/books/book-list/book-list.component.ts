@@ -38,12 +38,16 @@ export class BookListComponent implements AfterViewInit {
   }
 
   getDisplayedColumns(): string[] {
-    let columns = ['id', 'title', 'author', 'publisher', 'isbn', 'year', 'genre', 'status', 'recipient', 'bookReturnAt', 'updatedAt', 'returnColumn', 'reserveColumn'];
+    let columns = ['id', 'title', 'author', 'publisher', 'isbn', 'year', 'genre', 'status', 'recipient', 'bookReturnAt', 'updatedAt', 'returnColumn'];
 
     if (this.isRoleAdmin()) {
       columns.push('deleteColumn');
       columns.push('editColumn');
       columns.push('loanColumn');
+    }
+
+    if (this.isRoleUser()) {
+      columns.push('reserveColumn');
     }
 
     return columns;
