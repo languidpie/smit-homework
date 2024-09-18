@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BookService} from "../../core/book.service";
 import {PopupService} from "../../popup/popup.service";
 import {DatePipe} from "@angular/common";
+import moment from "moment";
 
 @Component({
   selector: 'app-book-loan',
@@ -27,7 +28,21 @@ export class BookLoanComponent {
   }
 
   onLoan(book: Book) {
+    if (this.isReturnDateInvalid()) {
+      return;
+    }
     book.bookReturnAt = this.datePipe.transform(this.book.bookReturnAt, 'yyyy-MM-ddTHH:mm:ss');
-    this.bookService.loan(book).subscribe(result => this.reservePopupService.closePopup());
+    this.bookService.loan(book).subscribe(result => {
+      this.reservePopupService.closePopup()
+    });
+  }
+
+  isReturnDateInvalid(): boolean {
+    const today = moment();
+    const maxDate = moment().add(4, 'weeks'); // 4 weeks from today
+
+    const returnDate = moment(this.book.bookReturnAt);
+
+    return returnDate.isBefore(today, 'day') || returnDate.isAfter(maxDate, 'day');
   }
 }

@@ -81,7 +81,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         } else {
             response.getWriter().write("{\"error\": \"No authority found\"}");
         }
-        chain.doFilter(request, response);
     }
 
     @Override

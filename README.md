@@ -95,4 +95,8 @@ spring.datasource.password=secret
 ```
 
 ### Known issues
-TBD
+
+- "Add books" page CSS might not load immediately.
+  - Fix: Refresh page
+- Refreshing http://localhost:4200/login again will return an error page.
+  - Go to http://localhost:4200/ for login.

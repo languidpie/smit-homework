@@ -1,22 +1,31 @@
 <h2 mat-dialog-title>Book Loaning</h2>
-<mat-dialog-content>
-  <p>Who would it be loaned to?</p>
-  <mat-form-field>
-    <mat-label>Name of recipient</mat-label>
-    <input matInput [(ngModel)]="book.recipient" name="recipient" #recipient="ngModel"/>
-    <mat-error *ngIf="recipient.invalid && recipient.touched">Recipient is required</mat-error>
-  </mat-form-field>
+<form #bookForm="ngForm" (ngSubmit)="onLoan(book)">
+  <mat-dialog-content>
+    <p>Who would it be loaned to?</p>
+    <mat-form-field>
+      <mat-label>Name of recipient</mat-label>
+      <input matInput [(ngModel)]="book.recipient" name="recipient" #recipient="ngModel" required/>
+      <mat-error *ngIf="recipient.invalid && recipient.touched">
+        Recipient is required
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Choose date of return</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="book.bookReturnAt" name="bookReturnDate" #bookReturnDate="ngModel">
-    <mat-error *ngIf="bookReturnDate.invalid && bookReturnDate.touched">Author is required</mat-error>
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onLoan(book)" cdkFocusInitial>Loan out</button>
-  <button mat-button [mat-dialog-close]="">Close</button>
-</mat-dialog-actions>
+    <mat-form-field>
+      <mat-label>Choose date of return</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="book.bookReturnAt" name="bookReturnDate" #bookReturnDate="ngModel" required/>
+      <mat-error *ngIf="bookReturnDate.invalid && bookReturnDate.touched">
+        Return date is required
+      </mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <p class="alert-danger" *ngIf="bookReturnDate.valid && isReturnDateInvalid()">
+      The return date must be within 4 weeks from today.
+    </p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button type="submit" cdkFocusInitial [disabled]="bookForm.invalid || isReturnDateInvalid()">Loan out</button>
+    <button mat-button [mat-dialog-close]="">Close</button>
+  </mat-dialog-actions>
+</form>

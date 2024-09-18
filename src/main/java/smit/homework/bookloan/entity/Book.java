@@ -46,7 +46,6 @@ public class Book {
     @Schema(description = "Genre of the book", example = "Romance")
     private String genre;
 
-    @Enumerated(EnumType.STRING)
     @Schema(description = "Current status of the book", example = "AVAILABLE", allowableValues = {"AVAILABLE", "LOANED_OUT", "RESERVED", "RECEIVED"})
     private BookStatus status;
 
