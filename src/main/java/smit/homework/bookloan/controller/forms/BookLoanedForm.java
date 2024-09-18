@@ -1,6 +1,7 @@
 package smit.homework.bookloan.controller.forms;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class BookLoanedForm {
     @NotBlank(message = "Recipient is mandatory")
     private String recipient;
-    @NotBlank(message = "Book return date (bookReturnAt) is mandatory")
+    @NotNull(message = "Book return date (bookReturnAt) is mandatory")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime bookReturnAt;
 }

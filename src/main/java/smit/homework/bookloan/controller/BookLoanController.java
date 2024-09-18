@@ -86,7 +86,7 @@ public class BookLoanController {
     }
 
     @PutMapping("/{id}/reserve")
-    public void reserveBook(@PathVariable long id, @RequestBody BookReserveForm bookReserveForm) {
+    public void reserveBook(@PathVariable long id, @RequestBody @Valid BookReserveForm bookReserveForm) {
         log.info("Attempting to reserve book with id={}.", id);
 
         bookLoanService.reserveBook(id, bookReserveForm);
@@ -95,7 +95,7 @@ public class BookLoanController {
     }
 
     @PutMapping("/{id}/loan")
-    public void loanBook(@PathVariable long id, @RequestBody BookLoanedForm bookLoanedForm) {
+    public void loanBook(@PathVariable long id, @RequestBody @Valid BookLoanedForm bookLoanedForm) {
         log.info("Attempting to loan book with id={}.", id);
 
         bookLoanService.loanBook(id, bookLoanedForm);

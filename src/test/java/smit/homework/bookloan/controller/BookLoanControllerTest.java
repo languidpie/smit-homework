@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link BookLoanController} class.
  *
  * @author Mari-Liis Pihlapuu
- * Date: 17.09
+ * Date: 17.09.2024
  */
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -54,7 +54,7 @@ class BookLoanControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(applicationContext).apply(springSecurity())
                 .build();
@@ -149,8 +149,8 @@ class BookLoanControllerTest {
 
         // when
         mockMvc.perform(post("/api/books")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(bookForm)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(bookForm)))
                 // then
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -191,9 +191,9 @@ class BookLoanControllerTest {
         when(bookLoanService.updateBook(anyLong(), any(BookForm.class))).thenReturn(bookToBeChanged);
 
         // when
-        this.mockMvc.perform(put("/api/books/" + bookToBeChanged.getId()  + "/edit")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(new BookForm())))
+        this.mockMvc.perform(put("/api/books/" + bookToBeChanged.getId() + "/edit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new BookForm())))
                 // then
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -211,10 +211,24 @@ class BookLoanControllerTest {
 
         // when
         this.mockMvc.perform(put("/api/books/1/reserve")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(reserveForm)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(reserveForm)))
                 // then
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void should_return_400_bad_request_when_validation_fails_during_reserve() throws Exception {
+        // given
+
+        // when
+        this.mockMvc.perform(put("/api/books/1/reserve")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new BookReserveForm())))
+                // then
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.recipient").value("Recipient is mandatory"));
     }
 
     @Test
@@ -227,10 +241,25 @@ class BookLoanControllerTest {
 
         // when
         this.mockMvc.perform(put("/api/books/1/loan")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(loanedForm)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(loanedForm)))
                 // then
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void should_return_404_bad_request_when_validation_fails_during_loan_out() throws Exception {
+        // given
+
+        // when
+        this.mockMvc.perform(put("/api/books/1/loan")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new BookLoanedForm())))
+                // then
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.recipient").value("Recipient is mandatory"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.bookReturnAt").value("Book return date (bookReturnAt) is mandatory"));
     }
 
     @Test

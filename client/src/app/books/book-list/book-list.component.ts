@@ -9,7 +9,6 @@ import {MatSort} from '@angular/material/sort';
 import {BookLoanComponent} from "../book-loan/book-loan.component";
 import {BookDeleteComponent} from "../book-delete/book-delete.component";
 import {BookEditComponent} from "../book-edit/book-edit.component";
-import {AuthService} from "../../auth.service";
 
 export interface DialogData {
   book: Book;
