@@ -333,7 +333,7 @@ public class BookLoanController {
                                     value = "{\n" +
                                             "  \"recipient\": \"John Doe\"," +
                                             "  \"bookReturnAt\": \"2024-09-16T14:41:19.971+03:00\"" +
-                                    "}"
+                                            "}"
                             )
                     )
             ),
@@ -347,14 +347,19 @@ public class BookLoanController {
                             description = "Invalid loaning details",
                             content = @Content(
                                     mediaType = "application/json",
-                                    examples = @ExampleObject(
+                                    examples = {@ExampleObject(
                                             name = "Invalid Loan Out Example",
                                             value = """
                                                     {
                                                       "recipient": "Recipient is mandatory",
                                                       "bookReturnAt": "Book return date (bookReturnAt) is mandatory"
                                                     }"""
-                                    )
+                                    ), @ExampleObject(
+                                            name = "Invalid Return Date Example",
+                                            value = """
+                                                    {
+                                                      "bookReturnAt": "Return date must be within 4 weeks from today"
+                                                    }""")}
                             )
                     ),
                     @ApiResponse(

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import smit.homework.bookloan.validator.ValidateReturnDate;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class BookLoanedForm {
 
     @Schema(description = "The date and time when the book is expected to be returned", example = "2024-10-01T15:30:00", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "Book return date (bookReturnAt) is mandatory")
+    @ValidateReturnDate
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime bookReturnAt;
 }
