@@ -80,7 +80,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/books/*/return").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/api/books/*/reserve").hasRole("USER")
                                 .requestMatchers("/api/books/*/received").hasRole("USER")
-                                .requestMatchers("/index.html", "/", "/home", "/login", "/logout")
+                                .requestMatchers("/index.html", "/", "/home", "/login", "/logout",
+                                        "/v3/**", "/swagger-ui/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(new CustomAuthenticationFilter(authManagerBuilder.getOrBuild()), UsernamePasswordAuthenticationFilter.class)
