@@ -37,7 +37,7 @@ public interface BookLoanService {
      * @param id identifier of the book to be updated
      * @param bookFormData the form data to update the book with
      * @return the updated book
-     * @throws RuntimeException if the book with the given ID is not found
+     * @throws smit.homework.bookloan.exception.BookNotFoundException if the book with the given ID is not found
      */
     Book updateBook(long id, BookForm bookFormData);
 
@@ -67,6 +67,7 @@ public interface BookLoanService {
      *
      * @param id the identifier of the book
      * @param bookLoanedForm the form data for the operation
+     * @throws smit.homework.bookloan.exception.BookNotFoundException if the book with the given ID is not found
      */
     void loanBook(long id, BookLoanedForm bookLoanedForm);
 
@@ -75,6 +76,7 @@ public interface BookLoanService {
      *
      * @param id the identifier of the book
      * @param bookReserveForm the form data for the operation
+     * @throws smit.homework.bookloan.exception.BookNotFoundException if the book with the given ID is not found
      */
     void reserveBook(long id, BookReserveForm bookReserveForm);
 
@@ -82,6 +84,7 @@ public interface BookLoanService {
      * Returns a book, making it available again.
      *
      * @param id the identifier of the book
+     * @throws smit.homework.bookloan.exception.BookNotFoundException if the book with the given ID is not found
      */
     void returnBook(long id);
 
@@ -89,6 +92,7 @@ public interface BookLoanService {
      * Marks the book as being received by the user.
      *
      * @param id the identifier of the book
+     * @throws smit.homework.bookloan.exception.BookNotFoundException if the book with the given ID is not found
      */
     void markAsReceived(long id);
 }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Exception handler to capture and handle custom exceptions.
+ * Global exception handler to capture and handle custom {@link BookNotFoundException} exception.
  *
  * @author Mari-Liis Pihlapuu
  * Date: 17.09.2024

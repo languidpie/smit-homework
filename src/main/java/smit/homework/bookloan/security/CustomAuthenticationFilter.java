@@ -9,11 +9,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Custom authentication filter for handling login and logout requests.
@@ -71,7 +73,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
 
-        response.getWriter().write(new ObjectMapper().writeValueAsString(authResult.getAuthorities().stream().findFirst().get()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Optional<? extends GrantedAuthority> authorityOptional = authResult.getAuthorities().stream().findFirst();
+
+        if (authorityOptional.isPresent()) {
+            String authorityJson = objectMapper.writeValueAsString(authorityOptional.get());
+            response.getWriter().write(authorityJson);
+        } else {
+            response.getWriter().write("{\"error\": \"No authority found\"}");
+        }
     }
 
     @Override
