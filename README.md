@@ -1,6 +1,24 @@
-# Customer Management Service
+# Book Loan Management Service
 
-A spring boot application for managing customer data.
+A spring boot application for managing book loan data.
+
+**NB! This application is meant to demonstrate the developers' capabilities and might have technical issues that had not been solved.**
+
+### Functionality
+Since this is a demo app, no separate secure storage of user data is implemented. To succeed in login within the application, passwords for the users are provided below:
+- **admin** - password: adminPass
+  - Adding new books to the system
+  - Editing book data within the system
+  - Deleting the books from the system
+  - Removing reservations set by the user
+  - Mark books as loaned out to user
+  - Marking books as returned by the user
+- **user** - password: userPass
+  - Searching for books in the system
+  - Reserving books within the system
+  - Removing prior reservations within the system
+  - Marking the books as received within the system
+  - Marking the books as returned
 
 
 ## Technologies used
@@ -70,7 +88,11 @@ http://localhost:8080/swagger-ui/index.html#/
 
 ## Local PostgreSQL Database
 
-````
+```
 spring.datasource.url=jdbc:postgresql://localhost:6432/book_management
 spring.datasource.username=admin
 spring.datasource.password=secret
+```
+
+### Known issues
+TBD
