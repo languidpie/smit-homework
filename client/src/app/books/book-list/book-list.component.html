@@ -103,7 +103,7 @@
           <th mat-header-cell *matHeaderCellDef>
           </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-button *ngIf="row.status === 'LOANED_OUT' || row.status === 'RESERVED'" (click)="returnBook(row)">Mark as returned</button>
+            <button mat-button *ngIf="row.status === 'LOANED_OUT' || row.status === 'RECEIVED'" (click)="returnBook(row)">Mark as returned</button>
           </td>
         </ng-container>
 
@@ -112,7 +112,16 @@
           <th mat-header-cell *matHeaderCellDef>
           </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-button *ngIf="row.status !== 'RESERVED' && row.status !== 'LOANED_OUT'" (click)="openReservePopup(row)">Reserve</button>
+            <button mat-button *ngIf="row.status === 'AVAILABLE'" (click)="openReservePopup(row)">Reserve</button>
+          </td>
+        </ng-container>
+
+        <!-- receivedColumn Column -->
+        <ng-container matColumnDef="receivedColumn">
+          <th mat-header-cell *matHeaderCellDef>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-button *ngIf="row.status !== 'LOANED_OUT' && row.status !== 'AVAILABLE' && row.status !== 'RECEIVED'" (click)="receivedBook(row)">Mark as received</button>
           </td>
         </ng-container>
 

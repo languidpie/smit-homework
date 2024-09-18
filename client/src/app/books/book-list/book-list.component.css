@@ -117,3 +117,7 @@ html, body {
 .status-reserved {
   color: orange;
 }
+
+.status-received {
+  color: purple;
+}

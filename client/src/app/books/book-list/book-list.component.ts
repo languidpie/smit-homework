@@ -34,8 +34,7 @@ export class BookListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort!: MatSort;
 
-  constructor(private bookService: BookService,
-              private authService: AuthService) {
+  constructor(private bookService: BookService) {
   }
 
   getDisplayedColumns(): string[] {
@@ -49,6 +48,7 @@ export class BookListComponent implements AfterViewInit {
 
     if (this.isRoleUser()) {
       columns.push('reserveColumn');
+      columns.push('receivedColumn');
     }
 
     return columns;
@@ -71,7 +71,6 @@ export class BookListComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -81,7 +80,6 @@ export class BookListComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -91,7 +89,6 @@ export class BookListComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -101,12 +98,15 @@ export class BookListComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
   returnBook(book: Book) {
     this.bookService.returnBook(book).subscribe(result => window.location.reload())
+  }
+
+  receivedBook(book: Book) {
+    this.bookService.received(book).subscribe(result => window.location.reload())
   }
 
   // Method to get the CSS class based on status
@@ -118,6 +118,8 @@ export class BookListComponent implements AfterViewInit {
         return 'status-loaned';
       case 'RESERVED':
         return 'status-reserved';
+      case 'RECEIVED':
+        return 'status-received';
       default:
         return ''; // Default case (optional)
     }

@@ -57,4 +57,9 @@ export class BookService {
     const headers = this.createAuthHeaders();
     return this.http.put<Book>(this.booksUrl + '/' + book.id + '/return', book, { headers });
   }
+
+  public received(book: Book) {
+    const headers = this.createAuthHeaders();
+    return this.http.put<Book>(this.booksUrl + '/' + book.id + '/received', book, { headers });
+  }
 }
