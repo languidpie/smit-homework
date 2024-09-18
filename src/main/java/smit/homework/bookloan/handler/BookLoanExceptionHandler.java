@@ -1,9 +1,10 @@
-package smit.homework.bookloan.exception;
+package smit.homework.bookloan.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import smit.homework.bookloan.exception.BookNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

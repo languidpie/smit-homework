@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Date: 14.09.2024
  */
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Book Loan API", version = "1.0", description = "Book loaning management API"))
+@OpenAPIDefinition(info = @Info(title = "Book Loan API", version = "1.0", description = "This API allows users to manage book loans, reservations, and returns."))
 public class BookLoanApplication {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package smit.homework.bookloan.exception;
+package smit.homework.bookloan.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
