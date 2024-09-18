@@ -34,7 +34,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if ("POST".equalsIgnoreCase(request.getMethod()) && "/login".equals(request.getRequestURI())) {
-            return handleLogin(request, response);
+            return handleLogin(request);
         } else if ("POST".equalsIgnoreCase(request.getMethod()) && "/logout".equals(request.getRequestURI())) {
             handleLogout(request, response);
             return null;
@@ -42,8 +42,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         return null;
     }
 
-    // Handle login attempt
-    private Authentication handleLogin(HttpServletRequest request, HttpServletResponse response) {
+    private Authentication handleLogin(HttpServletRequest request) {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> requestBody;
         try {
@@ -82,11 +81,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         } else {
             response.getWriter().write("{\"error\": \"No authority found\"}");
         }
+        chain.doFilter(request, response);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                              AuthenticationException failed) throws IOException, ServletException {
+                                              AuthenticationException failed) {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

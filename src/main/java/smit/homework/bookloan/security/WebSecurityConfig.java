@@ -37,6 +37,11 @@ import java.util.List;
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
 
+    private static final String[] AUTH_WHITE_LIST = {
+            "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources", "/v3/api-docs/**", "/proxy/**",
+            "/", "/home", "/login", "/logout"
+    };
+
     private final AuthenticationManagerBuilder authManagerBuilder;
 
     @Bean
@@ -63,11 +68,12 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
+
         http.cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(new CustomAuthenticationFilter(authManagerBuilder.getOrBuild()), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers(HttpMethod.OPTIONS).permitAll()
                                 .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/api/books/**").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("ADMIN")
@@ -76,11 +82,9 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/books/*/return").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/api/books/*/reserve").hasRole("USER")
                                 .requestMatchers("/api/books/*/received").hasRole("USER")
-                                .requestMatchers("/index.html", "/", "/home", "/login", "/logout",
-                                        "/v3/**", "/swagger-ui/**")
-                                .permitAll()
+                                .requestMatchers(AUTH_WHITE_LIST).permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS).permitAll()
                                 .anyRequest().authenticated())
-                .addFilterBefore(new CustomAuthenticationFilter(authManagerBuilder.getOrBuild()), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
@@ -90,14 +94,13 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Allow this origin
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow these methods
-        configuration.setAllowedHeaders(List.of("*")); // Allow all headers
-        configuration.setAllowCredentials(true); // Allow credentials
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Apply the configuration to all paths
-
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
