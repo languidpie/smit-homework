@@ -16,18 +16,22 @@ html, body {
   width: 100vw; /* Full viewport width */
   overflow: hidden; /* Prevent scrollbars */
   background-color: #d0d0d0; /* Light grey matching the table header color */
+  box-sizing: border-box; /* Ensure padding/margin are included in width/height */
+  padding: 20px;
 }
 
 /* Book container styling */
 .book-container {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
+  max-height: 100vh; /* Ensure container never exceeds viewport height */
   background-color: #ffffff; /* White background for container */
   border-radius: 8px; /* Slightly rounded corners */
   overflow: hidden; /* Prevent overflow */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   position: relative; /* Position relative to contain loading shade */
-  padding: 20px; /* Padding inside the container */
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box; /* Include padding in width/height */
 }
 
@@ -43,6 +47,8 @@ html, body {
 /* Table container styling */
 .book-table-container {
   overflow-x: auto; /* Enable horizontal scrolling on smaller screens */
+  flex-grow: 1; /* Ensure table takes up the available space */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds available height */
 }
 
 /* Table styling */
